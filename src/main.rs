@@ -1,3 +1,6 @@
+mod generate_shape;
+mod shaders;
+
 #[macro_use]
 extern crate glium;
 
@@ -9,47 +12,16 @@ fn main() {
     let cb = glutin::ContextBuilder::new();
     let display = glium::Display::new(wb, cb, &event_loop).unwrap();
 
-    // Vertex, to be moved
-    #[derive(Copy, Clone)]
-    struct Vertex {
-        position: [f32; 3],
-    }
-
-    // Look into this a little more
-    implement_vertex!(Vertex, position);
-
-    // Basic Triangle: TODO: Move triangle
-    let vertex1 = Vertex{ position: [-0.5, -0.5, 0.0] };
-    let vertex2 = Vertex{ position: [0.0, 0.5, 0.0] };
-    let vertex3 = Vertex{ position: [0.5, -0.25, 0.0] };
-    let shape = vec![vertex1, vertex2, vertex3];
+    // Get shape from generate shape
+    let shape = generate_shape::gen_shape(10);
 
     // Vertex buffer to use gpu for rendering:
     let vertex_buffer = glium::VertexBuffer::new(&display, &shape).unwrap();
     // Dummy index list
-    let indices = glium::index::NoIndices(glium::index::PrimitiveType::TrianglesList);
-
-    //GLSL shader TODO: Move shaders
-    //Vertex Shader
-    let vertex_shader_src = r#"
-        #version 140
-
-        in vec3 position;
-
-        void main() {
-            gl_Position = vec4(position, 1.0);
-        }
-    "#;
-    // Pixle shader
-    let fragment_shader_src = r#"
-        #version 140
-
-        out vec4 color;
-
-        void main() {
-            color = vec4(1.0, 0.0, 0.0, 1.0);
-        }
-    "#;
+    let indices = glium::index::NoIndices(glium::index::PrimitiveType::LinesList);
+    // Initialize shaders
+    let vertex_shader_src = shaders::vertex_shader();
+    let fragment_shader_src = shaders::pixle_shader();
     // Program to send to draw function
     let program = glium::Program::from_source(&display, vertex_shader_src, fragment_shader_src, None).unwrap();
 
