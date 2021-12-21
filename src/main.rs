@@ -13,7 +13,8 @@ fn main() {
     let display = glium::Display::new(wb, cb, &event_loop).unwrap();
 
     // Get shape from generate shape
-    let shape = generate_shape::gen_shape(10);
+    let shape = generate_shape::gen_shape(20);
+    //let shape = generate_shape::test_shape();
 
     // Vertex buffer to use gpu for rendering:
     let vertex_buffer = glium::VertexBuffer::new(&display, &shape).unwrap();
