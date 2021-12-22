@@ -6,8 +6,10 @@ pub fn vertex_shader() -> &'static str {
 
         in vec3 position;
 
+        uniform mat4 matrix;
+
         void main() {
-            gl_Position = vec4(position, 1.0);
+            gl_Position = matrix * vec4(position, 1.0);
         }
     "#;
     return vertex_shader_src;
@@ -21,7 +23,7 @@ pub fn pixle_shader() -> &'static str {
         out vec4 color;
 
         void main() {
-            color = vec4(1.0, 0.0, 0.0, 1.0);
+            color = vec4(0.0, 0.0, 0.0, 1.0);
         }
     "#;
     return fragment_shader_src;

@@ -13,7 +13,7 @@ fn main() {
     let display = glium::Display::new(wb, cb, &event_loop).unwrap();
 
     // Get shape from generate shape
-    let shape = generate_shape::gen_shape(20);
+    let shape = generate_shape::gen_shape(28);
     //let shape = generate_shape::test_shape();
 
     // Vertex buffer to use gpu for rendering:
@@ -29,9 +29,18 @@ fn main() {
     event_loop.run(move |ev, _, control_flow| {
 
         let mut target = display.draw();
-        target.clear_color(0.0, 0.0, 1.0, 1.0);
+        target.clear_color(1.0, 1.0, 1.0, 1.0);
         // Draw triangle
-        target.draw(&vertex_buffer, &indices, &program, &glium::uniforms::EmptyUniforms,
+        let angle: f32 = (std::f64::consts::PI as f32) / 2.6;
+        let uniforms = uniform! {
+            matrix: [
+                [1.0, 0.0, 0.0, 0.0],
+                [0.0, angle.cos(), -angle.sin(), 0.0],
+                [0.0, angle.sin(), angle.cos(), 0.0],
+                [0.0, 0.0, 0.0, 1.0f32],
+            ]
+        };
+        target.draw(&vertex_buffer, &indices, &program, &uniforms,
                     &Default::default()).unwrap();
         target.finish().unwrap();
 
