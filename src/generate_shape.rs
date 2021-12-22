@@ -1,7 +1,5 @@
 extern crate glium;
 extern crate nalgebra as na;
-use nalgebra::DMatrix;
-// TODO: Fix aspect ratio
 // TODO: Anti alias
 // TODO: Mouse event camera rotation
 
@@ -21,9 +19,9 @@ fn matrix_to_vertices(mat : &na::DMatrix<f32>) -> Vec<Vertex> {
     return vertices;
 }
 
-pub fn gen_shape(number_of_splines : u32) -> Vec<Vertex> {
+pub fn gen_shape(number_of_splines : u32, max_angle : f32) -> Vec<Vertex> {
     // Template Matrix
-    let mut mat = na::dmatrix![0.0, 0.5, 0.5,1.0,1.0,0.5,0.5,0.0;
+    let mat = na::dmatrix![0.0, 0.5, 0.5,1.0,1.0,0.5,0.5,0.0;
                           0.0,-0.5,-0.5,0.0,0.0,0.5,0.5,0.0;
                           0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0];
 
@@ -45,7 +43,7 @@ pub fn gen_shape(number_of_splines : u32) -> Vec<Vertex> {
 
         // Scale the spline
         let mut cur_spline = &mat * ((cur_len + 8.0) / max_len);
-        let angle = 2.0 * (std::f64::consts::PI as f32) * (-cur_len / max_len);
+        let angle = max_angle * (-cur_len / max_len);
 
         // Rotate the spline
         let rot_mat = na::dmatrix![angle.cos(), 0.0, angle.sin();

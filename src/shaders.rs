@@ -7,9 +7,10 @@ pub fn vertex_shader() -> &'static str {
         in vec3 position;
 
         uniform mat4 matrix;
+        uniform mat4 perspective;
 
         void main() {
-            gl_Position = matrix * vec4(position, 1.0);
+            gl_Position = perspective * matrix * vec4(position, 1.0);
         }
     "#;
     return vertex_shader_src;
