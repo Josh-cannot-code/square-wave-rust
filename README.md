@@ -12,3 +12,4 @@ OpenGL.
 
 At the top of the main function there are some parameters
 which can be changed to modify the fractal and its animation.
+![](sq_wave.gif)
