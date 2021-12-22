@@ -10,7 +10,7 @@ fn main() {
     let number_of_splines = 40; // Changes the number of splines
     let spline_angle = 1.0; // Multiple of 2*pi
     // ex: spline_angle = 3.0; splines will make 3 full rotations
-    let rotation_speed = 1.0; // increase for faster rotation, decrease for slower
+    let rotation_speed = 4.0; // increase for faster rotation, decrease for slower
 
 
     use glium::{glutin, Surface};
