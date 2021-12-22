@@ -35,7 +35,6 @@ pub fn gen_shape(number_of_splines : u32, max_angle : f32) -> Vec<Vertex> {
     let max_len = (8 * number_of_splines) as f32;
     // Distance between splines
     let delta = ((8.0 / max_len) * mat[(0, 4)]) / 2.0;
-    println!("delta: {}", delta);
     // Main generation loop
     while (shape.len() as f32) < max_len {
         let cur_len = shape.len() as f32;

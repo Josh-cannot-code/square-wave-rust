@@ -10,6 +10,5 @@ quite messy. This version is written in Rust and uses the
 Glium library: https://github.com/glium/glium to interface with
 OpenGL.
 
-Once everything is working properly I would like to compile 
-this project to web assembly to make it an interactive
-demo.
+At the top of the main function there are some parameters
+which can be changed to modify the fractal and its animation.
